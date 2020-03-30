@@ -1,1 +1,1 @@
-include LICENSE README.md s3recon/s3recon.yml data/*.txt
+include LICENSE README.md cloudrecon/cloudrecon.yml data/*.txt

@@ -19,9 +19,9 @@ from yaml import safe_load as load
 if not __package__:
     path.insert(0, str(Path(Path(__file__).parent.parent.parent)))
 
-from s3recon import __version__
-from s3recon.constants import useragent_list, format_list
-from s3recon.mongodb import MongoDB, Hit, Access
+from cloudrecon import __version__
+from cloudrecon.constants import useragent_list, format_list
+from cloudrecon.mongodb import MongoDB, Hit, Access
 
 filterwarnings("ignore", category=InsecureRequestWarning)
 cpus = cpu_count() or 1
@@ -85,12 +85,12 @@ def read_config():
     config = {}
 
     config_hierarchy = [
-        Path(Path(__file__).parent, "s3recon.yml"),  # default
-        Path(Path.home(), "s3recon.yaml"),
-        Path(Path.home(), "s3recon.yml"),
-        Path(Path.cwd(), "s3recon.yaml"),
-        Path(Path.cwd(), "s3recon.yml"),
-        Path(environ.get("S3RECON_CONFIG") or ""),
+        Path(Path(__file__).parent, "cloudrecon.yml"),  # default
+        Path(Path.home(), "cloudrecon.yaml"),
+        Path(Path.home(), "cloudrecon.yml"),
+        Path(Path.cwd(), "cloudrecon.yaml"),
+        Path(Path.cwd(), "cloudrecon.yml"),
+        Path(environ.get("cloudrecon_CONFIG") or ""),
     ]
 
     for c in config_hierarchy:

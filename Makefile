@@ -1,4 +1,4 @@
-project:=s3recon
+project:=cloudrecon
 version:=$(shell python -c 'import sys, os; sys.path.insert(0, os.path.abspath(".")); print(__import__("${project}").__version__)')
 
 .PHONY: list
@@ -44,7 +44,7 @@ ifdef version
 	curl -sSLf -XPOST \
 	-H "Authorization: token ${GITHUB_ACCESS_TOKEN}" \
 	-H "Content-Type: application/json" \
-	"https://api.github.com/repos/clarketm/${project}/releases" \
+	"https://api.github.com/repos/3of3/${project}/releases" \
 	--data "{\"tag_name\": \"v${version}\",\"target_commitish\": \"master\",\"name\": \"v${version}\",\"draft\": false,\"prerelease\": false}"
 endif
 

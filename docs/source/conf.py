@@ -26,11 +26,11 @@ from recommonmark.transform import AutoStructify
 # -- Project information -----------------------------------------------------
 
 project = ""
-copyright = "2019, Travis Clarke"
-author = "Travis Clarke"
+copyright = "2020, Nathaniel 'Q' Quist"
+author = "Nathaniel 'Q' Quist"
 
 # The full version, including alpha/beta/rc tags
-release = __import__("s3recon").__version__
+release = __import__("cloudrecon").__version__
 # The short X.Y version
 version = release
 
@@ -102,8 +102,8 @@ html_theme = "alabaster"
 #
 
 html_theme_options = {
-    "github_user": "clarketm",
-    "github_repo": "s3recon",
+    "github_user": "3of3",
+    "github_repo": "cloudrecon",
     "github_type": "star",
     "github_banner": "forkme_right_red_aa0000.png",
     "show_powered_by": False,
@@ -130,7 +130,7 @@ html_sidebars = {"**": ["about.html", "localtoc.html", "searchbox.html"]}
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "s3recondoc"
+htmlhelp_basename = "cloudrecondoc"
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -154,7 +154,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, "s3recon.tex", "s3recon Documentation", "Travis Clarke", "manual")
+    (master_doc, "cloudrecon.tex", "cloudrecon Documentation", "Nathaniel 'Q' Quist", "manual")
 ]
 
 
@@ -162,7 +162,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "s3recon", "s3recon Documentation", [author], 1)]
+man_pages = [(master_doc, "cloudrecon", "cloudrecon Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -173,10 +173,10 @@ man_pages = [(master_doc, "s3recon", "s3recon Documentation", [author], 1)]
 texinfo_documents = [
     (
         master_doc,
-        "s3recon",
-        "s3recon Documentation",
+        "cloudrecon",
+        "cloudrecon Documentation",
         author,
-        "s3recon",
+        "cloudrecon",
         "One line description of project.",
         "Miscellaneous",
     )
