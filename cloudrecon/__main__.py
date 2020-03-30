@@ -1,3 +1,3 @@
-from s3recon.s3recon import cli
+from cloudrecon.cloudrecon import cli
 
 cli()
