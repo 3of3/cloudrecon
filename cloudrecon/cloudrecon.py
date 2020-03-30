@@ -125,7 +125,10 @@ def main(words, timeout, concurrency, output, use_db, only_public):
             sep=sep if env else "",
             env=env,
         )
-        for f in format_list
+        for f in AWS_format_list
+        for f in GCP_format_list
+        for f in Azure_format_list
+        for f in Alibaba_format_list
         for region in awsregions
         for region in aliregions
         for word in words
