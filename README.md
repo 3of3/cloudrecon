@@ -5,7 +5,7 @@
 [![Downloads](https://pepy.tech/badge/cloudrecon)](https://pepy.tech/project/cloudrecon)
 [![Documentation Status](https://readthedocs.org/projects/cloudrecon/badge/?version=latest)](https://cloudrecon.readthedocs.io/en/latest/?badge=latest)
 
-Finder and crawler of cloud platform data storage buckets and blobs
+Cloud platform data storage bucket and blob finder and crawler
 
 <br>
 <a href="https://github.com/3of3/cloudrecon">
@@ -33,7 +33,7 @@ optional arguments:
   -h, --help                     show this help message and exit
   -o file, --output file         write output to <file>
   -d, --db                       write output to database
-  -p, --public                   only include 'public' buckets in the output
+  -p, --public                   only include 'public' buckets/blobs in the output
   -t seconds, --timeout seconds  http request timeout in <seconds> (default: 30)
   -v, --version                  show program's version number and exit
   -c num, --concurrency num      maximum <num> of concurrent requests (default: # of lcpus)
@@ -50,7 +50,7 @@ $ curl -sSfL -o "word-list.txt" "https://raw.githubusercontent.com/3of3/cloudrec
 ```
 
 #### 2. Run `cloudrecon`.
-Execute `cloudrecon` using the `word-list.txt` file and output the `public` S3 buckets to a json file named `results.json`.
+Execute `cloudrecon` using the `word-list.txt` file and output the `public` buckets/blobs to a json file named `results.json`.
 
 ```bash
 $ cloudrecon "word-list.txt" -o "results.json" --public
@@ -83,7 +83,7 @@ $ cat "results.json"
 }
 ```
 
-> **Note:** to include `private` buckets in the results omit the `-p, --public` flag from the command.
+> **Note:** to include `private` buckets/blobs in the results omit the `-p, --public` flag from the command.
 
 #### 4. Crawl the results.
 Enumerate the static files located in each bucket/blob and record the findings.
@@ -201,9 +201,12 @@ Sorry, at the moment only MongoDB is supported.
 
 ## Going Forward
 
-- [ ] Create `crawl` command to crawl public/private buckets found in `find` stage.
+- [x] Add GCP Data Storage Bucket Functionality
+- [ ] Add Azure Data Storage Blob Functionality
+- [ ] Add Alibaba Object Storage Service Functionality
+- [ ] Create `crawl` command to crawl public/private buckets/blobs found in `find` stage.
 - [ ] Separate out `find` and `crawl` as subcommands.
-- [x] Store discovered buckets in a NoSQL database.
+- [ ] Store discovered buckets/blobs in a NoSQL database.
 
 ## Disclaimer
 This tools is distributed for educational and security purposes. I take no responsibility and assume no liability for the manner in which this tool is used.
