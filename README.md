@@ -2,7 +2,6 @@
 
 [![PyPi release](https://img.shields.io/pypi/v/cloudrecon.svg)](https://pypi.org/project/cloudrecon/)
 [![PyPi versions](https://img.shields.io/pypi/pyversions/cloudrecon.svg)](https://pypi.org/project/cloudrecon/)
-[![Downloads](https://pepy.tech/badge/cloudrecon)](https://pepy.tech/project/cloudrecon)
 [![Documentation Status](https://readthedocs.org/projects/cloudrecon/badge/?version=latest)](https://cloudrecon.readthedocs.io/en/latest/?badge=latest)
 
 Cloud platform data storage bucket and blob finder and crawler
