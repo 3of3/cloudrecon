@@ -210,4 +210,4 @@ This tools is distributed for educational and security purposes. I take no respo
 
 ## License
 
-MIT &copy; [**Travis Clarke**](https://blog.travismclarke.com/)
+MIT &copy; [**Nathaniel "Q" Quist**](https://www.q-blogs.com/)
