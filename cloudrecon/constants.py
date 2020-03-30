@@ -1,8 +1,20 @@
-format_list = [
+AWS_format_list = [
     "https://{region}.amazonaws.com/{word}{sep}{env}",
     "https://{region}.amazonaws.com/{env}{sep}{word}",
     # "https://{word}{sep}{env}.{region}.amazonaws.com",
     # "https://{env}{sep}{word}.{region}.amazonaws.com",
+]
+
+GCP_format_list = [
+    "https://storage.googleapis.com/storage/v1/b/{word}{sep}{env}",
+]
+
+Azure_format_list = [
+    "https://{word}{sep}{env}.blob.core.windows.net",
+]
+
+Alibaba_format_list = [
+    "https://{region}.amazonaws.com/{word}{sep}{env}",
 ]
 
 useragent_list = [

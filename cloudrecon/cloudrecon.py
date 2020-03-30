@@ -20,7 +20,7 @@ if not __package__:
     path.insert(0, str(Path(Path(__file__).parent.parent.parent)))
 
 from cloudrecon import __version__
-from cloudrecon.constants import useragent_list, format_list
+from cloudrecon.constants import useragent_list, AWS_format_list, GCP_format_list, Azure_format_list, Alibaba_format_list
 from cloudrecon.mongodb import MongoDB, Hit, Access
 
 filterwarnings("ignore", category=InsecureRequestWarning)
@@ -113,19 +113,21 @@ def main(words, timeout, concurrency, output, use_db, only_public):
 
     config = read_config()
     database = config.get("database")
-    regions = config.get("regions") or [""]
+    awsregions = config.get("aws-regions") or [""]
+    aliregions = config.get("alibaba-regions") or [""]
     separators = config.get("separators") or [""]
     environments = config.get("environments") or [""]
 
     url_list = {
         f.format(
-            region=f"s3.{region}" if region else "s3",
+            region=f"{region}" if region else "s3",
             word=word,
             sep=sep if env else "",
             env=env,
         )
         for f in format_list
-        for region in regions
+        for region in awsregions
+        for region in aliregions
         for word in words
         for sep in separators
         for env in environments
