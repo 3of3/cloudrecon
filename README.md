@@ -8,7 +8,7 @@ Cloud platform data storage bucket and blob finder and crawler
 
 <br>
 <a href="https://github.com/3of3/cloudrecon">
-  <p align="center"><img width="40%" src="https://raw.githubusercontent.com/3of3/cloudrecon/master/recon.jpeg" /></p>
+  <p align="center"><img width="40%" src="https://raw.githubusercontent.com/3of3/cloudrecon/master/cloudrecon.jpeg" /></p>
 </a>
 
 [Check out the cloudrecon docs](https://cloudrecon.readthedocs.io/en/latest/)
