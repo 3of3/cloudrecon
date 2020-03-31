@@ -258,19 +258,20 @@ def cli():
         type=int,
         metavar="num",
         default=cpus,
-        help=f"maximum <num> of concurrent requests (default: {cpus})",
+        help=f"Maximum <num> of concurrent requests (default: {cpus})",
     )
     parser.add_argument(
         '-ct',
         '--cloudtype',
         action='store',
         dest='cloudtype',
-        help='Input which cloud platform to query: "AWS", "GCP", "Azure", or "Alibaba"')
+        help='Input which cloud platform to query: "AWS", "GCP", "Azure", or "Alibaba"'
+        )
     parser.add_argument(
         "word_list",
         nargs="+",
         type=argparse.FileType("r"),
-        help="read words from one or more <word-list> files",
+        help="Read words from one or more <word-list> files",
     )
     args = parser.parse_args()
 

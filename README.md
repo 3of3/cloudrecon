@@ -23,19 +23,23 @@ $ pip install cloudrecon
 ## Usage
 ```text
 
-usage: cloudrecon [-h] [-o file] [-d] [-p] [-t seconds] [-v] [-c num] word_list [word_list ...]
+usage: cloudrecon [-h] [-o file] [-d] [-p] [-t seconds] [-v] [-c num] [-ct CLOUDTYPE]
+                  word_list [word_list ...]
 
 positional arguments:
-  word_list                      read words from one or more <word-list> files
+  word_list                        read words from one or more <word-list> files
 
 optional arguments:
-  -h, --help                     show this help message and exit
-  -o file, --output file         write output to <file>
-  -d, --db                       write output to database
-  -p, --public                   only include 'public' buckets/blobs in the output
-  -t seconds, --timeout seconds  http request timeout in <seconds> (default: 30)
-  -v, --version                  show program's version number and exit
-  -c num, --concurrency num      maximum <num> of concurrent requests (default: # of lcpus)
+  -h, --help                       show this help message and exit
+  -o file, --output file           Write output to <file>
+  -d, --db                         Write output to database
+  -p, --public                     Only include 'public' buckets in the output
+  -t seconds, --timeout seconds    HTTP request timeout in <seconds> (default: 30)
+  -v, --version                    show program's version number and exit
+  -c num, --concurrency num        maximum <num> of concurrent requests (default: 8)
+  -ct CLOUDTYPE, --cloudtype CLOUDTYPE
+                                   Input which cloud platform to query: "AWS", "GCP", "Azure", or
+                                   "Alibaba"
 
 ```
 
