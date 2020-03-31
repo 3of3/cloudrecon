@@ -20,7 +20,7 @@ if not __package__:
     path.insert(0, str(Path(Path(__file__).parent.parent.parent)))
 
 from cloudrecon import __version__
-from cloudrecon.constants import useragent_list, AWS_format_list, GCP_format_list, Azure_format_list, Alibaba_format_list
+from cloudrecon.constants import useragent_list, aws_format_list, gcp_format_list, azure_format_list, alibaba_format_list
 from cloudrecon.mongodb import MongoDB, Hit, Access
 
 filterwarnings("ignore", category=InsecureRequestWarning)
@@ -45,7 +45,7 @@ def bucket_exists(url, timeout):
         )
         # TODO: handle redirects
         status_code = res.status_code
-        exists = status_code != 404
+        exists = status_code != 404 or 400
         public = status_code == 200
     except RequestException:
         pass
@@ -107,34 +107,75 @@ def json_output_template(key, total, hits, exclude):
     return {} if exclude else {key: {"total": total, "hits": hits}}
 
 
-def main(words, timeout, concurrency, output, use_db, only_public):
+def main(words, timeout, concurrency, output, use_db, only_public, cloudtype):
     start = datetime.now()
     loop = get_event_loop()
 
     config = read_config()
     database = config.get("database")
-    awsregions = config.get("aws-regions") or [""]
-    aliregions = config.get("alibaba-regions") or [""]
     separators = config.get("separators") or [""]
     environments = config.get("environments") or [""]
 
-    url_list = {
-        f.format(
-            region=f"{region}" if region else "s3",
-            word=word,
-            sep=sep if env else "",
-            env=env,
-        )
-        for f in AWS_format_list
-        for f in GCP_format_list
-        for f in Azure_format_list
-        for f in Alibaba_format_list
-        for region in awsregions
-        for region in aliregions
-        for word in words
-        for sep in separators
-        for env in environments
-    }
+    ## This is where I will make the switch between AWS, GCP, Azure, and Alibaba
+    if cloudtype == 'AWS':
+        awsregions = config.get("aws-regions") or [""]
+        url_list = {
+            f.format(
+                awsregion=f"{awsregion}",
+                word=word,
+                sep=sep,
+                env=env,
+            )
+            for f in aws_format_list
+            for awsregion in awsregions
+            for word in words
+            for sep in separators
+            for env in environments
+        }
+    elif cloudtype == 'GCP':
+        url_list = {
+            f.format(
+                word=word,
+                sep=sep,
+                env=env,
+            )
+            for f in gcp_format_list
+            for word in words
+            for sep in separators
+            for env in environments
+        }
+
+    elif cloudtype == 'Azure':
+        url_list = {
+            f.format(
+                word=word,
+                sep=sep,
+                env=env,
+            )
+            for f in azure_format_list
+            for word in words
+            for sep in separators
+            for env in environments
+        }
+
+    elif cloudtype == 'Alibaba':
+        aliregions = config.get("alibaba-regions") or [""]
+        url_list = {
+            f.format(
+                aliregion=f"{aliregion}",
+                word=word,
+                sep=sep,
+                env=env,
+            )
+            for f in alibaba_format_list
+            for aliregion in aliregions
+            for word in words
+            for sep in separators
+            for env in environments
+        }
+
+    elif cloudtype is None:
+        print("Cloudtype not presented, please input one of the following: AWS, GCP, Azure, or Alibaba")
 
     db = MongoDB(host=database["host"], port=database["port"]) if use_db else None
     sem = Semaphore(concurrency)
@@ -183,16 +224,19 @@ def cli():
         "--output",
         type=argparse.FileType("w"),
         metavar="file",
-        help="write output to <file>",
+        help="Write output to <file>",
     )
     parser.add_argument(
-        "-d", "--db", action="store_true", help="write output to database"
+        "-d",
+        "--db",
+        action="store_true",
+        help="Write output to database"
     )
     parser.add_argument(
         "-p",
         "--public",
         action="store_true",
-        help="only include 'public' buckets in the output",
+        help="Only include 'public' buckets in the output",
     )
     parser.add_argument(
         "-t",
@@ -200,10 +244,13 @@ def cli():
         type=int,
         metavar="seconds",
         default=30,
-        help="http request timeout in <seconds> (default: 30)",
+        help="HTTP request timeout in <seconds> (default: 30)",
     )
     parser.add_argument(
-        "-v", "--version", action="version", version=f"%(prog)s {__version__}"
+        "-v",
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}"
     )
     parser.add_argument(
         "-c",
@@ -213,7 +260,12 @@ def cli():
         default=cpus,
         help=f"maximum <num> of concurrent requests (default: {cpus})",
     )
-    # parser.add_argument("words", nargs="?", type=argparse.FileType("r"), default=stdin, help="list of words to permute")
+    parser.add_argument(
+        '-ct',
+        '--cloudtype',
+        action='store',
+        dest='cloudtype',
+        help='Input which cloud platform to query: "AWS", "GCP", "Azure", or "Alibaba"')
     parser.add_argument(
         "word_list",
         nargs="+",
@@ -228,8 +280,9 @@ def cli():
     concurrency = args.concurrency
     public = args.public
     words = {l.strip() for f in args.word_list for l in f}
+    cloudtype = args.cloudtype
 
-    main(words=words, timeout=timeout, concurrency=max(1, concurrency), output=output, use_db=db, only_public=public)
+    main(words=words, timeout=timeout, concurrency=max(1, concurrency), output=output, use_db=db, only_public=public, cloudtype=cloudtype)
 
 
 if __name__ == "__main__":
