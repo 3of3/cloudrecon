@@ -45,7 +45,7 @@ def bucket_exists(url, timeout):
         )
         # TODO: handle redirects
         status_code = res.status_code
-        exists = status_code != 404 or 400
+        exists = (status_code != 404) or (status_code != 400)
         public = status_code == 200
     except RequestException:
         pass
