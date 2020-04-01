@@ -11,8 +11,8 @@ gcp_format_list = [
 ]
 
 azure_format_list = [
-    "https://{word}{sep}{env}.blob.core.windows.net",
-    "https://{env}{sep}{word}.blob.core.windows.net",
+    "https://{word}{env}.blob.core.windows.net",
+    "https://{env}{word}.blob.core.windows.net",
 ]
 
 alibaba_format_list = [

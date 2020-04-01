@@ -149,12 +149,10 @@ def main(words, timeout, concurrency, output, use_db, only_public, cloudtype):
         url_list = {
             f.format(
                 word=word,
-                sep=sep,
                 env=env,
             )
             for f in azure_format_list
             for word in words
-            for sep in separators
             for env in environments
         }
 
