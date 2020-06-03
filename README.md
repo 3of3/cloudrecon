@@ -150,13 +150,15 @@ The following is the list of configurable values:
 ```yaml
 # cloudrecon.yml
 
-database: { host: "0.0.0.0", ... }
+database: { host: "0.0.0.0", port: 27017 }
 
-separators: ["-", "_", "."]
+separators: ["-", ".", ""]
 
-environments: ["", "backup", "backups", ...]
+environments: ["", "0", "1", ... "asset"]
 
-regions: ["ap-northeast-1", "ap-northeast-2", ...]
+aws-regions: ["ap-northeast-1", "ap-northeast-2", ...]
+
+alibaba-regions: ["cn-hangzhou", "cn-shanghai", ...]
 ```
 
 > To see the full list of configurable values (and their **defaults**) please refer to the [cloudrecon.yml](https://github.com/3of3/cloudrecon/blob/master/cloudrecon/cloudrecon.yml) file in this repository.
