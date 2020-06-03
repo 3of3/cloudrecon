@@ -164,13 +164,15 @@ alibaba-regions: ["cn-hangzhou", "cn-shanghai", ...]
 > To see the full list of configurable values (and their **defaults**) please refer to the [cloudrecon.yml](https://github.com/3of3/cloudrecon/blob/master/cloudrecon/cloudrecon.yml) file in this repository.
 
 
-#### Q: How do I customize the AWS regions used in the recon?
+#### Q: How can I customize the AWS or Alibaba regions?
 #### A:
-The AWS *regions* can be altered by setting the `regions` array in your `cloudrecon.yml` configuration file.
+The AWS and Alibaba *regions* can be altered by setting the `regions` array in your `cloudrecon.yml` configuration file.
 ```yaml
 # cloudrecon.yml
 
-regions: [ "us-west-2", ...]
+aws-regions: ["ap-northeast-1", "ap-northeast-2", ...]
+
+alibaba-regions: ["cn-hangzhou", "cn-shanghai", ...]
 ```
 
 
@@ -180,6 +182,8 @@ The *environments* are modifiers permuted with each item of the *word-list* (and
 The value can be altered by setting the `environments` array in your `cloudrecon.yml` configuration file.
 
 For example, to only search lines from the word-list *verbatim* (i.e. without modification) you can set this value to an empty array.
+
+FYI, AWS only allows for the non-alphanumeric characters "-" and "." to be used within a bucketname. More research is required to determine what characters are allowed within Alibaba, GCP, and Azure.
 ```yaml
 # cloudrecon.yml
 
@@ -206,12 +210,8 @@ Sorry, at the moment only MongoDB is supported.
 
 ## Going Forward
 
-- [x] Add GCP Data Storage Bucket Functionality
-- [ ] Add Azure Data Storage Blob Functionality
-- [ ] Add Alibaba Object Storage Service Functionality
-- [ ] Create `crawl` command to crawl public/private buckets/blobs found in `find` stage.
-- [ ] Separate out `find` and `crawl` as subcommands.
-- [ ] Store discovered buckets/blobs in a NoSQL database.
+- [x] Integrate my own `s3content` script into this script for an all in one capability
+- [ ] Write this tool in GoLang!! Make it faster!
 
 ## Disclaimer
 This tools is distributed for educational and security purposes. I take no responsibility and assume no liability for the manner in which this tool is used.
